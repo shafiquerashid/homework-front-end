@@ -29,6 +29,7 @@ export const fetchGifs = () => (dispatch) => {
 	    dispatch(fetchGifsSuccess(data))
 	  })
 	  .catch((e) => { 
+	  	debugger
 	    dispatch(fetchGifsFailure(e))
 	  })
   }

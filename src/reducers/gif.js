@@ -18,27 +18,23 @@ const gifReducer = (state = initialState, action) => {
   const fullList = action.data || []
   const currentQuery = action.query || ''
   let filteredList = []
-
+ 
   switch (action.type) {
     case GET_GIFS:
-
       // return state object with state.loading set to true
-      return state
+      return { ...state, loading: true }
     case GET_GIFS_SUCCESS:
       // if there is already query text in user input field, build filtered list
       if (state.currentQuery.length > 0) {
         filteredList = filteredList(state.query, action.data)
-
       // otherwise, place all gifs into filteredList
       } else {
         filteredList = action.data
       }
-
-      return { ...state, fullList, filteredList }
+      return { ...state, fullList, filteredList, loading: false }
     case GET_GIFS_FAILURE:
-      return { ...state, fetchError: false }
+      return { ...state, fetchError: true, loading: false }
     case SEARCH_GIFS:
-
       // return state object with filtered list, currentQuery updated
       return { ...state, currentQuery, filteredList: filterList(state.fullList, action.query) }
     default:

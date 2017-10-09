@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 const styles = {
   gifWrapper: {
     flexGrow: 1,
-    backgroundColor: 'rgba(0, 0, 0, .9)',
   },
+  
   gif: {
     width: '100%',
   },
