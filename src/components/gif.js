@@ -12,7 +12,6 @@ const styles = {
   },
 }
 
-
 const Gif = ({ gif, classes }) => {
   const altText = 'Loading in a giphy!'
   return (
