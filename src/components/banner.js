@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import injectSheet from 'react-jss'
 
 const styles = {
@@ -10,13 +10,13 @@ const styles = {
     padding: '.5em 0',
     backgroundColor: 'rgba(0, 0, 0, .9)',
     textAlign: 'center',
-  }
+  },
 }
 
-const Banner = ({ classes }) => (
+const Banner = ({ classes = {} }) => (
   <div className={classes.banner}>
     Trending GiphEaze by Shafique
   </div>
-);
+)
 
-export default injectSheet(styles)(Banner);
+export default injectSheet(styles)(Banner)
