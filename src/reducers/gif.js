@@ -4,27 +4,43 @@ const initialState = {
   fullList: [], // entire response array from API
   filteredList: [], // current filtered list based on user's last search string
   currentQuery: '', // user's last search string
-  loading: false,
-  fetchError: false,
+  loading: false, // waiting on API response
+  fetchError: false, // last API fetch responded with error
 }
+
+/**
+* used to filter full list of gif's by those matching
+* user's query (using the `slug` attribute of Gif objects)
+**/
+const filterList = (arr, query) => arr.filter(gif => gif.slug.indexOf(query) > -1)
+
 const gifReducer = (state = initialState, action) => {
+  const fullList = action.data || []
+  const currentQuery = action.query || ''
+  let filteredList = []
+
   switch (action.type) {
     case GET_GIFS:
 
-      // return state object with state.loading set to false
+      // return state object with state.loading set to true
       return state
     case GET_GIFS_SUCCESS:
+      // if there is already query text in user input field, build filtered list
+      if (state.currentQuery.length > 0) {
+        filteredList = filteredList(state.query, action.data)
 
-      // state updated with gif data, UI rendered
-      return state
+      // otherwise, place all gifs into filteredList
+      } else {
+        filteredList = action.data
+      }
+
+      return { ...state, fullList, filteredList }
     case GET_GIFS_FAILURE:
-
-      // return state object with state.fetchError set to true
-      return state
+      return { ...state, fetchError: false }
     case SEARCH_GIFS:
 
-      // return state object with state.fetchError set to true
-      return state
+      // return state object with filtered list, currentQuery updated
+      return { ...state, currentQuery, filteredList: filterList(state.fullList, action.query) }
     default:
       return state
   }

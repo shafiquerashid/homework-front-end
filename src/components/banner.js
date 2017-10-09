@@ -1,5 +1,6 @@
 import React from 'react'
 import injectSheet from 'react-jss'
+import PropTypes from 'prop-types'
 
 const styles = {
   banner: {
@@ -18,5 +19,9 @@ const Banner = ({ classes = {} }) => (
     Trending GiphEaze by Shafique
   </div>
 )
+
+Banner.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+}
 
 export default injectSheet(styles)(Banner)

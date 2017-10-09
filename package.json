@@ -17,6 +17,7 @@
     "eslint": "^4.8.0",
     "fetch-mock": "^5.13.0",
     "isomorphic-fetch": "^2.2.1",
+    "prop-types": "^15.6.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-jss": "^7.2.0",
