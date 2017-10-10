@@ -1,7 +1,7 @@
 import 'isomorphic-fetch'
 
 // fetch url
-export const url = 'http://api.giphy.com/v1/gifs/trending?count=100&api_key=qZRb61x9uCy2XGkQNSuL51MF6Od8YqP6'
+export const url = 'http://api.giphy.com/v1/gifs/trending?limit=50&api_key=qZRb61x9uCy2XGkQNSuL51MF6Od8YqP6'
 
 // constants
 export const GET_GIFS = 'GET_GIFS'

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const GifUserNamelItem = ({ user }) => user && user.display_name ? (<div>Uploaded by {user.display_name}</div>) :  null
 
 GifUserNamelItem.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string).isRequired,
+  user: PropTypes.objectOf(PropTypes.string),
 }
 
 export default GifUserNamelItem
