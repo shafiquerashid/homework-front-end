@@ -54,8 +54,7 @@ class GifMosaic extends React.Component {
         </div>
       )
     }
-    let key = 0
-    const gifs = this.props.gifs.filteredList.map(gif => <Gif key={key++} gif={gif} />)
+    const gifs = this.props.gifs.filteredList.map(gif => <Gif key={gif.id} gif={gif} />)
     return (
       <div className={this.props.classes.gifMosaic}>
         {gifs}
