@@ -27,46 +27,55 @@ const sortList = (arr, sortAscending) => arr.slice().sort((x, y) => {
 **/
 const filterList = (arr, query) => arr.filter(gif => gif.slug.indexOf(query) > -1)
 
+const sortGifs = (state) => {
+  let sortedList = []
+  let filteredList = []
+  // flip sort order and sort full list
+  sortedList = sortList(state.fullList, !state.isSortedAscending)
+  // if there is already query text in user input field, re-build sorted filtered list
+  if (state.currentQuery.length > 0) {
+    filteredList = filterList(sortedList, state.currentQuery)
+  // otherwise, place all gifs into filteredList
+  } else {
+    filteredList = sortedList
+  }
+  return { ...state, fullList: sortedList, isSortedAscending: !state.isSortedAscending, filteredList }
+}
+
+// return state object with filtered list, currentQuery updated
+const searchGifs = (state, currentQuery = '') => ({ ...state, currentQuery, filteredList: filterList(state.fullList, currentQuery) })
+
+const getGifsSuccess = (state, newFullList) => {
+  // sort results acorrding to current sort order
+  const fullList = sortList(newFullList, state.isSortedAscending)
+  let filteredList = []
+  // if there is already query text in user input field, build filtered list
+  if (state.currentQuery.length > 0) {
+    filteredList = filteredList(state.query, fullList)
+  // otherwise, place all gifs into filteredList
+  } else {
+    filteredList = fullList
+  }
+  return { ...state, fullList, filteredList, loading: false }
+}
+
 
 // REDUCER
 
 const gifReducer = (state = initialState, action) => {
-  const currentQuery = action.query || ''
-  let fullList = action.data || []
-  let filteredList = []
-  let sortedList = []
+  const newFullList = action.data || []
 
   switch (action.type) {
     case GET_GIFS:
-      // return state object with state.loading set to true
       return { ...state, loading: true }
     case GET_GIFS_SUCCESS:
-      // sort results acorrding to current sort order
-      fullList = sortList(fullList, state.isSortedAscending)
-      // if there is already query text in user input field, build filtered list
-      if (state.currentQuery.length > 0) {
-        filteredList = filteredList(state.query, fullList)
-      // otherwise, place all gifs into filteredList
-      } else {
-        filteredList = fullList
-      }
-      return { ...state, fullList, filteredList, loading: false }
+      return getGifsSuccess(state, newFullList)
     case GET_GIFS_FAILURE:
       return { ...state, fetchError: true, loading: false }
     case SEARCH_GIFS:
-      // return state object with filtered list, currentQuery updated
-      return { ...state, currentQuery, filteredList: filterList(state.fullList, action.query) }
+      return searchGifs(state, action.query)
     case SORT_GIFS:
-      // flip sort order and sort full list
-      sortedList = sortList(state.fullList, !state.isSortedAscending)
-      // if there is already query text in user input field, re-build sorted filtered list
-      if (state.currentQuery.length > 0) {
-        filteredList = filterList(sortedList, state.currentQuery)
-      // otherwise, place all gifs into filteredList
-      } else {
-        filteredList = sortedList
-      }
-      return { ...state, fullList: sortedList, isSortedAscending: !state.isSortedAscending, filteredList }
+      return sortGifs(state)
     default:
       return state
   }
