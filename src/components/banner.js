@@ -9,14 +9,13 @@ const styles = {
     color: 'white',
     width: '100%',
     padding: '.5em 0',
-    backgroundColor: 'rgba(0, 0, 0, .9)',
     textAlign: 'center',
   },
 }
 
 const Banner = ({ classes = {} }) => (
   <div className={classes.banner}>
-    Trending GiphEaze by Shafique
+    Trending GiphEaze
   </div>
 )
 

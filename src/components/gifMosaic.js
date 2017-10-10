@@ -8,22 +8,22 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: 'rgba(0, 0, 0, .9)',
     height: '100%',
   },
 
   fetchStatusMessage: {
     display: 'block',
-    fontSize: '1.5em',
-    color: 'white',
-    backgroundColor: 'rgba(0, 0, 0, .9)',
+    fontSize: '1em',
     textAlign: 'center',
     paddingTop: '2%',
+    color: 'white',
   },
 
   fetchStatusGif: {
-    width: '100%',
-    paddingTop: '2%',
+    margin: 'auto',
+    display: 'block',
+    width: '30%',
+    paddingTop: '10%',
   },
 }
 
@@ -34,21 +34,23 @@ class GifMosaic extends React.Component {
   }
 
   render() {
-    const loadingText = 'Back in a Giphy.'
+    const loadingText = 'Be Back in a Giphy.'
     const errorText = 'Oops, our bad. Try again in a bit.'
     const loadingGif = 'https://media.giphy.com/media/TvLuZ00OIADoQ/giphy.gif'
-    const errorGif = 'https://media.giphy.com/media/TvLuZ00OIADoQ/giphy.gif'
+    const errorGif = 'https://media.giphy.com/media/rvDtLCABDMaqY/giphy.gif'
     // Waiting for API response
     if (this.props.gifs.loading === true) {
       return (
-        <div className={this.props.classes.fetchStatusMessage}>{loadingText}
+        <div>
           <img className={this.props.classes.fetchStatusGif} src={loadingGif} alt="Loading..." />
+          <div className={this.props.classes.fetchStatusMessage}>{loadingText}</div>
         </div>
       )
     } else if (this.props.gifs.fetchError === true) {
       return (
-        <div className={this.props.classes.fetchStatusMessage}>{errorText}
+        <div>
           <img className={this.props.classes.fetchStatusGif} src={errorGif} alt="Oops" />
+          <div className={this.props.classes.fetchStatusMessage}>{errorText}</div>
         </div>
       )
     }
